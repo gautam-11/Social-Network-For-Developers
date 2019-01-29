@@ -67,10 +67,12 @@ router.post(
         // Create
 
         // Check if handle exists
-        Profile.findOne({ handle: profileFields.handle }).then(profile => {
-          errors.handle = 'That handle already exists'
-          res.status(400).json(errors)
-        })
+        Profile.findOne({ handle: profileFields.handle })
+          .then(profile => {
+            errors.handle = 'That handle already exists'
+            res.status(400).json(errors)
+          })
+          .catch(err => console.log(err))
         // Save User
         new Profile(profileFields)
           .save()
