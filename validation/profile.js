@@ -9,7 +9,6 @@ module.exports = function validateProfileInput (data) {
   data.skills = !isEmpty(data.skills) ? data.skills : ''
 
   if (Validator.isEmpty(data.handle)) {
-    console.log(data.handle)
     errors.handle = 'Profile Handle  is required'
   } else if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
     errors.handle = 'Handle must be between 2 and 4 characters'
