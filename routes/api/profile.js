@@ -207,7 +207,6 @@ router.post(
   '/education',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log(req)
     const { errors, isValid } = validateEducationInput(req.body)
     // Check Validation
     if (!isValid) {
@@ -232,6 +231,50 @@ router.post(
           .catch(err => console.log(err))
       })
       .catch(err => res.status(404).json(err))
+  }
+)
+
+// @route POST api/profile/experience/:exp_id
+// @desc Delete experience from profile
+// @access private
+router.delete(
+  '/experience/:exp_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      // Get remove index
+      const removeIndex = profile.experience
+        .map(item => item._id)
+        .indexOf(req.params.exp_id)
+
+    profile.experience.splice(removeIndex , 1);
+
+    //Save
+    profile.save().then(profile => res.json(profile))
+    })
+    .catch(err => res.status(404).json(err))
+  }
+)
+
+// @route DELETE api/profile/education/:edu_id
+// @desc Delete education from profile
+// @access private
+router.delete(
+  '/education/:exp_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      // Get remove index
+      const removeIndex = profile.education
+        .map(item => item._id)
+        .indexOf(req.params.exp_id)
+
+    profile.education.splice(removeIndex , 1);
+
+    //Save
+    profile.save().then(profile => res.json(profile))
+    })
+    .catch(err => res.status(404).json(err))
   }
 )
 
