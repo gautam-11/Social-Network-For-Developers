@@ -3,6 +3,7 @@ import setAuthToken from "../utils/setAuthToken";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 //Register User
+
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/users/register", userData)

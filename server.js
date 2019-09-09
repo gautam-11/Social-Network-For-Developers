@@ -6,7 +6,6 @@ const posts = require("./routes/api/posts");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
-
 const app = express();
 
 // Body parser middleware
